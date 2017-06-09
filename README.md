@@ -5,7 +5,7 @@
 
 1. 开发工具：Cocos Creater
 1. 开发语言：Java + JavaScript
-1. 服务端框架：Spring Boot + MySQL + JPA
+1. 服务端框架：Spring Boot + MySQL + JPA + NettySocketIO
 1. 客户端语言：Cocos Creater/JavaScript
 
 加入QQ群，了解最新开发进度 ，QQ群号： 529311623
