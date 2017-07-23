@@ -24,8 +24,8 @@
            xmlns="http://www.hazelcast.com/schema/config"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <group>
-        <name>UCKeFu</name>
-        <password>UCKeFu-1234567890</password>
+        <name>BeiMi</name>
+        <password>BeiMi-1234567890</password>
     </group>
     <network>
         <port auto-increment="true" port-count="100">5701</port>
@@ -179,6 +179,22 @@
         -->
         <cache-deserialized-values>INDEX-ONLY</cache-deserialized-values>
 
+    </map>
+    
+    <map name="api_user_cache">
+        <in-memory-format>BINARY</in-memory-format>
+        <backup-count>1</backup-count>
+        <async-backup-count>0</async-backup-count>
+        <!-- 最大过期时间，7天 -->
+        <time-to-live-seconds>604800</time-to-live-seconds>
+        <!-- 最长空闲时间，8小时 -->
+        <max-idle-seconds>28800</max-idle-seconds>
+        <eviction-policy>NONE</eviction-policy>
+        <max-size policy="PER_NODE">0</max-size>
+        <eviction-percentage>25</eviction-percentage>
+        <min-eviction-check-millis>100</min-eviction-check-millis>
+        <merge-policy>com.hazelcast.map.merge.PutIfAbsentMapMergePolicy</merge-policy>
+        <cache-deserialized-values>INDEX-ONLY</cache-deserialized-values>
     </map>
 
     <multimap name="default">

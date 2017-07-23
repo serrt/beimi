@@ -30,7 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterAfter(tokenInfoTokenFilterSecurityInterceptor() , BasicAuthenticationFilter.class)
 	        .antMatcher("*/*").authorizeRequests()
 	        .anyRequest().permitAll()
-	        .and().addFilterAfter(csrfHeaderFilter(), BasicAuthenticationFilter.class);
+	        .and().addFilterAfter(csrfHeaderFilter(), BasicAuthenticationFilter.class)
+	        .addFilterAfter(apiTokenFilterSecurityInterceptor(), BasicAuthenticationFilter.class);
     }
     @Bean
     public Filter tokenInfoTokenFilterSecurityInterceptor() throws Exception
@@ -47,6 +48,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         RequestMatcher trace = new AntPathRequestMatcher("/trace/**");
         
         return new DelegateRequestMatchingFilter(autconfig , configprops , beans , dump , env , health , info , mappings , metrics , trace);
+    }
+    
+    @Bean
+    public Filter apiTokenFilterSecurityInterceptor() throws Exception
+    {
+        return new ApiRequestMatchingFilter(new AntPathRequestMatcher("/api/**"));
     }
     
     private Filter csrfHeaderFilter() {

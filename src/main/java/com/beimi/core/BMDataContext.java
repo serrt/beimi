@@ -9,6 +9,7 @@ public class BMDataContext {
 	public static final String GUEST_USER_ID_CODE = "BEIMIGUESTUSEKEY" ;
 	public static final String SERVICE_QUENE_NULL_STR = "service_quene_null" ;
 	public static final String DEFAULT_TYPE = "default"	;		//默认分类代码
+	public static String SYSTEM_ORGI = "beimi" ;
 	
 	private static int WebIMPort = 8081 ;
 	
