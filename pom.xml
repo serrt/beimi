@@ -4,16 +4,16 @@
 
 	<groupId>com.beimi</groupId>
 	<artifactId>beimi</artifactId>
-	<version>1.0.0</version>
+	<version>0.1.0</version>
 	<packaging>jar</packaging>
 
-	<name>majiang</name>
-	<description>贝密游戏（麻将）</description>
+	<name>chess</name>
+	<description>贝密游戏</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.3.RELEASE</version>
+		<version>1.5.6.RELEASE</version>
 	</parent>
 
 	<properties>
@@ -43,6 +43,11 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
@@ -50,6 +55,11 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>net.java.dev.jna</groupId>
+		    <artifactId>jna</artifactId>
+		    <version>4.1.0</version>
 		</dependency>
 
 		<dependency>
@@ -65,6 +75,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+		<dependency>
+		  <groupId>org.springframework.data</groupId>
+		  <artifactId>spring-data-elasticsearch</artifactId>
 		</dependency>
 
 		<dependency>
@@ -109,7 +124,7 @@
 		<dependency>
 			<groupId>com.corundumstudio.socketio</groupId>
 			<artifactId>netty-socketio</artifactId>
-			<version>1.6.7</version>
+			<version>1.7.12</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -141,7 +156,7 @@
 		<dependency>
 			<groupId>org.lionsoul.ip2region</groupId>
 			<artifactId>ip2region</artifactId>
-			<version>1.2.3</version>
+			<version>1.2.4</version>
 		</dependency>
 
 		<dependency>
@@ -203,7 +218,33 @@
 			<artifactId>cglib</artifactId>
 			<version>3.2.5</version>
 		</dependency>
-
+		
+		 <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-core</artifactId>
+            <version>7.0.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-compiler</artifactId>
+            <version>7.0.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-decisiontables</artifactId>
+            <version>7.0.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-templates</artifactId>
+            <version>7.0.0.Final</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.kie</groupId>
+            <artifactId>kie-api</artifactId>
+            <version>7.0.0.Final</version>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -284,6 +325,7 @@
 			<url>http://repo1.maven.org/maven2</url>
 		</repository>
 	</repositories>
+	
 	<distributionManagement>
 		<repository>
 			<id>SPRING-LIBS-snapshot</id>
