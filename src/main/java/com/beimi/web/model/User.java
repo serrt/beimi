@@ -1,8 +1,9 @@
 package com.beimi.web.model;
 
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,9 +20,9 @@ import org.hibernate.annotations.GenericGenerator;
  * 
  */
 @Entity
-@Table(name = "uk_user")
+@Table(name = "bm_user")
 @org.hibernate.annotations.Proxy(lazy = false)
-public class User implements Serializable{
+public class User implements java.io.Serializable{
 	/**
 	 * 
 	 */
@@ -30,7 +31,7 @@ public class User implements Serializable{
 	/**
 	 * 
 	 */
-	 @Id
+    @Id
 	private String id ;
 	
 	private String sessionid ;
@@ -50,7 +51,10 @@ public class User implements Serializable{
 	private String birthday ;
 	private String nickname ;
 	private String secureconf = "5";
-	private String usertype ; // 0 Admin User  : !0  Other User 
+	private String usertype ; // 0 Admin User  : !0  Other User
+	
+	private boolean superuser ;	//是否是超级管理员
+	
 	private String orgi ;
 	private String creater;
 	private Date createtime = new Date();
@@ -58,7 +62,8 @@ public class User implements Serializable{
 	private Date updatetime = new Date();
 	private String memo;
 	private String organ;
-	private boolean agent ;	//是否开通坐席功能
+	private boolean agent ;	
+	private boolean callcenter ;
 	private String skill ;
 	private String city ;	//城市
 	private String province ;//省份
@@ -67,11 +72,14 @@ public class User implements Serializable{
 	private String status ;		//
 	private boolean datastatus ;//数据状态，是否已删除	
 	
+	
 	private Date lastlogintime = new Date();	//最后登录时间
 	
 	private int fans ;			//粉丝
 	private int follows ;		//关注
 	private int integral ;		//积分
+	private List<Role> roleList = new ArrayList<Role>() ;
+	private List<RoleAuth> roleAuthList  = new ArrayList<RoleAuth>() ;
 	
 	public User(){}
 	public User(String id){
@@ -412,6 +420,13 @@ public class User implements Serializable{
 	public void setOnline(boolean online) {
 		this.online = online;
 	}
+	@Transient
+	public List<Role> getRoleList() {
+		return roleList;
+	}
+	public void setRoleList(List<Role> roleList) {
+		this.roleList = roleList;
+	}
 	public String getStatus() {
 		return status;
 	}
@@ -423,5 +438,25 @@ public class User implements Serializable{
 	}
 	public void setDatastatus(boolean datastatus) {
 		this.datastatus = datastatus;
+	}
+	
+	public boolean isCallcenter() {
+		return callcenter;
+	}
+	public void setCallcenter(boolean callcenter) {
+		this.callcenter = callcenter;
+	}
+	@Transient
+	public List<RoleAuth> getRoleAuthList() {
+		return roleAuthList;
+	}
+	public void setRoleAuthList(List<RoleAuth> roleAuthList) {
+		this.roleAuthList = roleAuthList;
+	}
+	public boolean isSuperuser() {
+		return superuser;
+	}
+	public void setSuperuser(boolean superuser) {
+		this.superuser = superuser;
 	}
 }

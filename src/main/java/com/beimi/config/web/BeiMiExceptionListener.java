@@ -21,6 +21,7 @@ public class BeiMiExceptionListener extends ExceptionListenerAdapter {
     	}else{
     		log.error(e.getMessage(), e);
     	}
+    	client.disconnect();
     }
 
     @Override
@@ -30,6 +31,7 @@ public class BeiMiExceptionListener extends ExceptionListenerAdapter {
     	}else{
     		log.error(e.getMessage(), e);
     	}
+    	client.disconnect();
     }
 
     @Override
@@ -39,6 +41,7 @@ public class BeiMiExceptionListener extends ExceptionListenerAdapter {
     	}else{
     		log.error(e.getMessage(), e);
     	}
+    	client.disconnect();
     }
 
     @Override
@@ -48,6 +51,7 @@ public class BeiMiExceptionListener extends ExceptionListenerAdapter {
     	}else{
     		log.error(e.getMessage(), e);
     	}
+    	ctx.close();
         return true;
     }
 }

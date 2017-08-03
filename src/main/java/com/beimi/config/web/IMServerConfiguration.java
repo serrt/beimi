@@ -24,14 +24,17 @@ import com.corundumstudio.socketio.annotation.SpringAnnotationScanner;
 @org.springframework.context.annotation.Configuration  
 public class IMServerConfiguration  
 {  	
-	@Value("${bm.im.server.host}")  
+	@Value("${uk.im.server.host}")  
     private String host;  
   
-    @Value("${bm.im.server.port}")  
+    @Value("${uk.im.server.port}")  
     private Integer port;
     
     @Value("${web.upload-path}")
     private String path;
+    
+    @Value("${uk.im.server.threads}")
+    private String threads;
     
     private SocketIOServer server ;
     
@@ -47,9 +50,12 @@ public class IMServerConfiguration
     	Configuration config = new Configuration();
 //		config.setHostname("localhost");
 		config.setPort(port);
+		
+//		config.getSocketConfig().setReuseAddress(true);
 //		config.setSocketConfig(new SocketConfig());
-		config.setOrigin("*");
+//		config.setOrigin("http://im.uckefu.com");
 		config.setExceptionListener(new BeiMiExceptionListener());
+		
 		File sslFile = new File(path , "ssl/https.properties") ;
         if(sslFile.exists()){
         	Properties sslProperties = new Properties();
@@ -65,14 +71,14 @@ public class IMServerConfiguration
 		
 		
 //	    config.setSSLProtocol("https");
-		config.setWorkerThreads(100);
+		int workThreads = !StringUtils.isBlank(threads) && threads.matches("[\\d]{1,6}") ? Integer.parseInt(threads) : 100 ;
+		config.setWorkerThreads(workThreads);
 //		config.setStoreFactory(new HazelcastStoreFactory());
 		config.setAuthorizationListener(new AuthorizationListener() {
 			public boolean isAuthorized(HandshakeData data) {
 				return true;
 			}
 		});
-		
         return server = new SocketIOServer(config);  
     }
     

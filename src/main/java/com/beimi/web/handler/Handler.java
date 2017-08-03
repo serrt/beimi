@@ -1,6 +1,5 @@
 package com.beimi.web.handler;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.beimi.core.BMDataContext;
 import com.beimi.util.UKTools;
 import com.beimi.util.UKView;
-import com.beimi.util.cache.CacheHelper;
 import com.beimi.web.model.User;
 
 
@@ -26,24 +24,11 @@ public class Handler {
 	public User getUser(HttpServletRequest request){
 		User user = (User) request.getSession(true).getAttribute(BMDataContext.USER_SESSION_NAME)  ;
 		if(user==null){
-			String authorization = request.getHeader("authorization") ;
-			if(StringUtils.isBlank(authorization) && request.getCookies()!=null){
-				for(Cookie cookie : request.getCookies()){
-					if(cookie.getName().equals("authorization")){
-						authorization = cookie.getValue() ; break ;
-					}
-				}
-			}
-			if(!StringUtils.isBlank(authorization)){
-				user = (User) CacheHelper.getApiUserCacheBean().getCacheObject(authorization, BMDataContext.SYSTEM_ORGI) ;
-			}
-			if(user==null){
-				user = new User();
-				user.setId(UKTools.getContextID(request.getSession().getId())) ;
-				user.setUsername(BMDataContext.GUEST_USER+"_"+UKTools.genIDByKey(user.getId())) ;
-				user.setOrgi(BMDataContext.SYSTEM_ORGI);
-				user.setSessionid(user.getId()) ;
-			}
+			user = new User();
+			user.setId(UKTools.getContextID(request.getSession().getId())) ;
+			user.setUsername(BMDataContext.GUEST_USER+"_"+UKTools.genIDByKey(user.getId())) ;
+			user.setOrgi(BMDataContext.SYSTEM_ORGI);
+			user.setSessionid(user.getId()) ;
 		}else{
 			user.setSessionid(user.getId()) ;
 		}

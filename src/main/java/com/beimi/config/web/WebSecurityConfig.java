@@ -25,7 +25,7 @@ import org.springframework.web.util.WebUtils;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Override
+	@Override
     protected void configure(HttpSecurity http) throws Exception {
         http.addFilterAfter(tokenInfoTokenFilterSecurityInterceptor() , BasicAuthenticationFilter.class)
 	        .antMatcher("*/*").authorizeRequests()
@@ -46,8 +46,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         RequestMatcher mappings = new AntPathRequestMatcher("/mappings/**");
         RequestMatcher metrics = new AntPathRequestMatcher("/metrics/**");
         RequestMatcher trace = new AntPathRequestMatcher("/trace/**");
+        RequestMatcher druid = new AntPathRequestMatcher("/druid/**");
         
-        return new DelegateRequestMatchingFilter(autconfig , configprops , beans , dump , env , health , info , mappings , metrics , trace);
+        return new DelegateRequestMatchingFilter(autconfig , configprops , beans , dump , env , health , info , mappings , metrics , trace, druid);
     }
     
     @Bean

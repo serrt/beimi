@@ -28,10 +28,15 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.FatalBeanException;
+import org.springframework.data.elasticsearch.repository.ElasticsearchCrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
 import com.beimi.core.BMDataContext;
+import com.beimi.util.event.UserDataEvent;
+import com.beimi.util.event.UserEvent;
+import com.lmax.disruptor.dsl.Disruptor;
 
 
 public class UKTools {
@@ -402,4 +407,15 @@ public class UKTools {
     	}
     	return workintTime ;
     }
+    
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void published(UserEvent event , ElasticsearchCrudRepository esRes , JpaRepository dbRes){
+		Disruptor<UserDataEvent> disruptor = (Disruptor<UserDataEvent>) BMDataContext.getContext().getBean("disruptor") ;
+		long seq = disruptor.getRingBuffer().next();
+		UserDataEvent userDataEvent = disruptor.getRingBuffer().get(seq) ;
+		userDataEvent.setEvent(event);
+		userDataEvent.setDbRes(dbRes);
+		userDataEvent.setEsRes(esRes);
+		disruptor.getRingBuffer().publish(seq);
+	}
 }
