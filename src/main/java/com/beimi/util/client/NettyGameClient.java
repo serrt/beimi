@@ -5,28 +5,28 @@ import java.util.List;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.google.common.collect.ArrayListMultimap;
 
-public class NettyAgentClient implements NettyClient{
+public class NettyGameClient implements NettyClient{
 	
-	private ArrayListMultimap<String, SocketIOClient> agentClientsMap = ArrayListMultimap.create();
+	private ArrayListMultimap<String, SocketIOClient> gameClientsMap = ArrayListMultimap.create();
 	
 	public List<SocketIOClient> getClients(String key){
-		return agentClientsMap.get(key) ;
+		return gameClientsMap.get(key) ;
 	}
 	
 	public void putClient(String key , SocketIOClient client){
-		agentClientsMap.put(key, client) ;
+		gameClientsMap.put(key, client) ;
 	}
 	
 	public void removeClient(String key , String id){
 		List<SocketIOClient> keyClients = this.getClients(key) ;
 		for(SocketIOClient client : keyClients){
-			if(client.getSessionId().equals(id)){
+			if(client.getSessionId().toString().equals(id)){
 				keyClients.remove(client) ;
 				break ;
 			}
 		}
 		if(keyClients.size() == 0){
-			agentClientsMap.removeAll(key) ;
+			gameClientsMap.removeAll(key) ;
 		}
 	}
 }

@@ -42,10 +42,8 @@ public class BMDataContext {
 	
 public enum NameSpaceEnum{
 		
-		IM("/im/user") ,
-		AGENT("/im/agent"), 
-		ENTIM("/im/ent") ,
-		AIIM("/im/ai") ;
+		SYSTEM("/bm/system") ,
+		GAME("/bm/game");
 		
 		private String namespace ;
 		

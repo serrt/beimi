@@ -9,12 +9,12 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.OnConnect;
 import com.corundumstudio.socketio.annotation.OnDisconnect;
 
-public class IMEventHandler     
+public class SystemEventHandler     
 {  
 	protected SocketIOServer server;
 	
     @Autowired  
-    public IMEventHandler(SocketIOServer server)   
+    public SystemEventHandler(SocketIOServer server)   
     {  
         this.server = server ;
     }  
