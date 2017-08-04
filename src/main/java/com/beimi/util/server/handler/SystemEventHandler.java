@@ -23,9 +23,8 @@ public class SystemEventHandler
     public void onConnect(SocketIOClient client)  
     {  
     	try {
-			String user = client.getHandshakeData().getSingleUrlParam("userid") ;
-			
-			if(!StringUtils.isBlank(user)){
+			String token = client.getHandshakeData().getSingleUrlParam("token") ;
+			if(!StringUtils.isBlank(token)){
 				
 			}
 		} catch (Exception e) {

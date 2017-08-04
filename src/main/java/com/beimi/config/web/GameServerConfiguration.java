@@ -22,7 +22,7 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.SpringAnnotationScanner;
   
 @org.springframework.context.annotation.Configuration  
-public class IMServerConfiguration  
+public class GameServerConfiguration  
 {  	
 	@Value("${uk.im.server.host}")  
     private String host;  
@@ -76,7 +76,8 @@ public class IMServerConfiguration
 //		config.setStoreFactory(new HazelcastStoreFactory());
 		config.setAuthorizationListener(new AuthorizationListener() {
 			public boolean isAuthorized(HandshakeData data) {
-				return true;
+				String token = data.getSingleUrlParam("token") ; 
+				return !StringUtils.isBlank(token);
 			}
 		});
         return server = new SocketIOServer(config);  
