@@ -270,8 +270,8 @@
     "relativePath": "script\\lib"
   },
   "cb804921-c57f-4d32-84f3-5ba70007a34b": {
-    "asset": 1501838529889,
-    "meta": 1501838529988,
+    "asset": 1501839869768,
+    "meta": 1501839869835,
     "relativePath": "script\\components\\loading.js"
   },
   "088657d1-aafb-450b-8525-cc8d95776cca": {
@@ -655,13 +655,23 @@
     "relativePath": "scene\\dating"
   },
   "9ffef9bb-4c0f-40bb-b096-cd5b6c6281d8": {
-    "asset": 1501775604065,
-    "meta": 1501775604080,
+    "asset": 1501841632522,
+    "meta": 1501841632552,
     "relativePath": "scene\\dating\\login.fire"
   },
   "c3362f07-3cd8-4e58-8025-6ae3c744fd20": {
     "asset": 1501773310274,
     "meta": 1501774020118,
     "relativePath": "script\\lib\\socket.io.js"
+  },
+  "16d18a3f-c622-4bff-bac5-0eb1238388ab": {
+    "asset": 1501841379015,
+    "meta": 1501841379057,
+    "relativePath": "script\\action\\login\\dialog.js"
+  },
+  "d2140a5b-ab05-43cb-8771-fe43732bded3": {
+    "asset": 1501841526888,
+    "meta": 1501841657915,
+    "relativePath": "images\\girl.png"
   }
 }

@@ -36,7 +36,9 @@ cc.Class({
                 /**
                  *  后台交互需要token 
                  **/ 
-                io("http://127.0.0.1:9081/bm/system?token="+cc.tools.http.authorization);
+                if(cc.tools.http.authorization !== "" && cc.tools.http.authorization !== "-1"){
+                    io("http://127.0.0.1:9081/bm/system?token="+cc.tools.http.authorization);
+                }
             });
         });
     },
