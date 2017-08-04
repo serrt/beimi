@@ -1,52 +1,53 @@
-2017-08-03T15:55:36.351Z - normal: Load ~/.CocosCreator/settings.json
-2017-08-03T15:55:36.357Z - normal: checking language setting...
-2017-08-03T15:55:36.357Z - normal: Language: zh
-2017-08-03T15:55:37.856Z - success: protocol editor-framework registered
-2017-08-03T15:55:37.857Z - success: protocol app registered
-2017-08-03T15:55:37.857Z - success: protocol theme registered
-2017-08-03T15:55:37.857Z - success: protocol profile registered
-2017-08-03T15:55:37.857Z - success: protocol packages registered
-2017-08-03T15:55:37.857Z - success: protocol unpack registerred
-2017-08-03T15:55:37.857Z - success: protocol disable-commonjs registerred
-2017-08-03T15:55:38.177Z - normal: connected!
-2017-08-03T15:55:38.180Z - normal: Check project D:\wordspace\program\beimi\chess\client\beimi
-2017-08-03T15:55:38.183Z - normal: Initializing Cocos2d
-2017-08-03T15:55:38.396Z - normal: Initializing Asset Database
-2017-08-03T15:55:38.432Z - success: protocol uuid registerred
-2017-08-03T15:55:38.432Z - success: protocol db registerred
-2017-08-03T15:55:38.432Z - success: protocol thumbnail registerred
-2017-08-03T15:55:38.432Z - normal: Loading editor/builtin packages
-2017-08-03T15:55:38.452Z - success: anysdk loaded
-2017-08-03T15:55:38.587Z - success: assets loaded
-2017-08-03T15:55:38.589Z - success: builder loaded
-2017-08-03T15:55:38.592Z - success: hierarchy loaded
-2017-08-03T15:55:38.596Z - success: inspector loaded
-2017-08-03T15:55:38.598Z - success: keystore loaded
-2017-08-03T15:55:38.601Z - success: node-library loaded
-2017-08-03T15:55:38.603Z - success: package-asset loaded
-2017-08-03T15:55:38.605Z - success: preferences loaded
-2017-08-03T15:55:38.618Z - success: project-importer loaded
-2017-08-03T15:55:38.620Z - success: project-settings loaded
-2017-08-03T15:55:38.623Z - success: ui-kit loaded
-2017-08-03T15:55:38.625Z - success: ui-grid loaded
-2017-08-03T15:55:38.629Z - success: scene loaded
-2017-08-03T15:55:38.631Z - success: sprite-editor loaded
-2017-08-03T15:55:38.634Z - success: store loaded
-2017-08-03T15:55:38.638Z - success: timeline loaded
-2017-08-03T15:55:38.638Z - normal: Loading builtin packages
-2017-08-03T15:55:38.641Z - success: asset-db-debugger loaded
-2017-08-03T15:55:38.643Z - success: code-editor loaded
-2017-08-03T15:55:38.644Z - success: color-picker loaded
-2017-08-03T15:55:38.647Z - success: console loaded
-2017-08-03T15:55:38.649Z - success: package-manager loaded
-2017-08-03T15:55:38.652Z - success: sdkbox loaded
-2017-08-03T15:55:38.655Z - success: tester loaded
-2017-08-03T15:55:38.658Z - success: ui-kit-preview-extra loaded
-2017-08-03T15:55:38.660Z - success: ui-kit-preview loaded
-2017-08-03T15:55:38.662Z - success: ui-tree loaded
-2017-08-03T15:55:39.555Z - normal: Initializing project D:\wordspace\program\beimi\chess\client\beimi
-2017-08-03T15:55:39.560Z - normal: Loading packages
-2017-08-03T15:55:39.565Z - normal: Watching packages
-2017-08-03T15:55:39.582Z - normal: Run Application
-2017-08-03T15:55:40.028Z - success: preview server running at http://localhost:7456
-2017-08-03T15:55:45.490Z - normal: 1.5.2
+2017-08-04T13:46:50.915Z - normal: Load ~/.CocosCreator/settings.json
+2017-08-04T13:46:50.921Z - normal: checking language setting...
+2017-08-04T13:46:50.921Z - normal: Language: zh
+2017-08-04T13:46:52.437Z - success: protocol editor-framework registered
+2017-08-04T13:46:52.438Z - success: protocol app registered
+2017-08-04T13:46:52.438Z - success: protocol theme registered
+2017-08-04T13:46:52.438Z - success: protocol profile registered
+2017-08-04T13:46:52.438Z - success: protocol packages registered
+2017-08-04T13:46:52.438Z - success: protocol unpack registerred
+2017-08-04T13:46:52.438Z - success: protocol disable-commonjs registerred
+2017-08-04T13:46:52.722Z - normal: connected!
+2017-08-04T13:46:52.734Z - normal: Check project D:\wordspace\program\beimi\chess\client\beimi
+2017-08-04T13:46:52.781Z - normal: Initializing Cocos2d
+2017-08-04T13:46:53.015Z - normal: Initializing Asset Database
+2017-08-04T13:46:53.046Z - success: protocol uuid registerred
+2017-08-04T13:46:53.046Z - success: protocol db registerred
+2017-08-04T13:46:53.046Z - success: protocol thumbnail registerred
+2017-08-04T13:46:53.047Z - normal: Loading editor/builtin packages
+2017-08-04T13:46:53.071Z - success: anysdk loaded
+2017-08-04T13:46:53.208Z - success: assets loaded
+2017-08-04T13:46:53.210Z - success: builder loaded
+2017-08-04T13:46:53.214Z - success: hierarchy loaded
+2017-08-04T13:46:53.217Z - success: inspector loaded
+2017-08-04T13:46:53.219Z - success: keystore loaded
+2017-08-04T13:46:53.222Z - success: node-library loaded
+2017-08-04T13:46:53.224Z - success: package-asset loaded
+2017-08-04T13:46:53.226Z - success: preferences loaded
+2017-08-04T13:46:53.241Z - success: project-importer loaded
+2017-08-04T13:46:53.244Z - success: project-settings loaded
+2017-08-04T13:46:53.246Z - success: ui-kit loaded
+2017-08-04T13:46:53.248Z - success: ui-grid loaded
+2017-08-04T13:46:53.251Z - success: scene loaded
+2017-08-04T13:46:53.253Z - success: sprite-editor loaded
+2017-08-04T13:46:53.257Z - success: store loaded
+2017-08-04T13:46:53.261Z - success: timeline loaded
+2017-08-04T13:46:53.261Z - normal: Loading builtin packages
+2017-08-04T13:46:53.263Z - success: asset-db-debugger loaded
+2017-08-04T13:46:53.264Z - success: code-editor loaded
+2017-08-04T13:46:53.265Z - success: color-picker loaded
+2017-08-04T13:46:53.268Z - success: console loaded
+2017-08-04T13:46:53.270Z - success: package-manager loaded
+2017-08-04T13:46:53.274Z - success: sdkbox loaded
+2017-08-04T13:46:53.277Z - success: tester loaded
+2017-08-04T13:46:53.280Z - success: ui-kit-preview-extra loaded
+2017-08-04T13:46:53.282Z - success: ui-kit-preview loaded
+2017-08-04T13:46:53.284Z - success: ui-tree loaded
+2017-08-04T13:46:54.139Z - normal: Initializing project D:\wordspace\program\beimi\chess\client\beimi
+2017-08-04T13:46:54.143Z - normal: Loading packages
+2017-08-04T13:46:54.148Z - normal: Watching packages
+2017-08-04T13:46:54.162Z - normal: Run Application
+2017-08-04T13:46:54.932Z - success: preview server running at http://localhost:7456
+2017-08-04T13:47:00.149Z - normal: 1.5.2
+2017-08-04T13:48:17.295Z - normal: Compiled project javascript file successfully

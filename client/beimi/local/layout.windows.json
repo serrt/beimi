@@ -45,7 +45,7 @@
                     "children": [
                       "scene"
                     ],
-                    "height": 683,
+                    "height": 495,
                     "type": "panel",
                     "width": 969.984375
                   },
@@ -54,22 +54,22 @@
                     "children": [
                       "node-library"
                     ],
-                    "height": 683,
+                    "height": 495,
                     "type": "panel",
                     "width": 291
                   }
                 ],
-                "height": 683,
+                "height": 495,
                 "type": "dock-h",
                 "width": 1263.984375
               },
               {
-                "active": 0,
+                "active": 1,
                 "children": [
                   "console",
                   "timeline"
                 ],
-                "height": 226,
+                "height": 414,
                 "type": "panel",
                 "width": 1263.984375
               }
@@ -100,14 +100,51 @@
         "timeline"
       ]
     },
-    "worker": {}
+    "window-1501854691439": {
+      "main": false,
+      "url": "unpack://static/window.html",
+      "windowType": "float",
+      "x": 751,
+      "y": 281,
+      "width": 418,
+      "height": 447,
+      "layout": {
+        "children": [
+          {
+            "active": 0,
+            "children": [
+              "timeline.bezier"
+            ],
+            "height": 400,
+            "type": "panel",
+            "width": 400
+          }
+        ],
+        "type": "dock-v"
+      },
+      "panels": [
+        "timeline.bezier"
+      ]
+    }
   },
   "panels": {
     "code-editor": {
-      "x": 492,
-      "y": 241,
-      "width": 1076,
-      "height": 602
+      "x": -9,
+      "y": -9,
+      "width": 1938,
+      "height": 1048
+    },
+    "timeline.event": {
+      "x": 751,
+      "y": 281,
+      "width": 418,
+      "height": 447
+    },
+    "timeline.bezier": {
+      "x": 751,
+      "y": 281,
+      "width": 418,
+      "height": 447
     }
   }
 }
