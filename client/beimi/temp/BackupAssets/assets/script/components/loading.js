@@ -33,9 +33,12 @@ cc.Class({
             cc.tools.http.authorization = ret ;
             cc.tools.http.httpGet("/tokens",function(ret){
                 //console.log(ret);
+                /**
+                 *  后台交互需要token 
+                 **/ 
+                io("http://127.0.0.1:9081/bm/system?token="+cc.tools.http.authorization);
             });
         });
-        io("http://127.0.0.1:9081/im/user?userid=admin");
     },
     start:function(){        
         var self = this;

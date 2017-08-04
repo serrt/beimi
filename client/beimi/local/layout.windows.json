@@ -20,7 +20,7 @@
                 ],
                 "height": 468.984375,
                 "type": "panel",
-                "width": 310
+                "width": 334
               },
               {
                 "active": 0,
@@ -29,12 +29,12 @@
                 ],
                 "height": 440,
                 "type": "panel",
-                "width": 310
+                "width": 334
               }
             ],
             "height": 912,
             "type": "dock-v",
-            "width": 310
+            "width": 334
           },
           {
             "children": [
@@ -45,23 +45,23 @@
                     "children": [
                       "scene"
                     ],
-                    "height": 440,
+                    "height": 683,
                     "type": "panel",
-                    "width": 814.984375
+                    "width": 912.984375
                   },
                   {
                     "active": 0,
                     "children": [
                       "node-library"
                     ],
-                    "height": 440,
+                    "height": 683,
                     "type": "panel",
-                    "width": 311
+                    "width": 347.984375
                   }
                 ],
-                "height": 440,
+                "height": 683,
                 "type": "dock-h",
-                "width": 1128.984375
+                "width": 1263.984375
               },
               {
                 "active": 0,
@@ -69,14 +69,14 @@
                   "console",
                   "timeline"
                 ],
-                "height": 468.984375,
+                "height": 226,
                 "type": "panel",
-                "width": 1128.984375
+                "width": 1263.984375
               }
             ],
             "height": 912,
             "type": "dock-v",
-            "width": 1128.984375
+            "width": 1263.984375
           },
           {
             "active": 0,
@@ -85,7 +85,7 @@
             ],
             "height": 912,
             "type": "panel",
-            "width": 463
+            "width": 304
           }
         ],
         "type": "dock-h"
@@ -98,6 +98,19 @@
         "scene",
         "node-library",
         "timeline"
+      ]
+    },
+    "window-1501839040808": {
+      "main": false,
+      "url": "packages://code-editor/panel/index.html",
+      "windowType": "simple",
+      "x": -9,
+      "y": -9,
+      "width": 1932,
+      "height": 1048,
+      "layout": null,
+      "panels": [
+        "code-editor"
       ]
     }
   },

@@ -39,11 +39,9 @@ cc.Class({
         }
 
         cc.game.on(cc.game.EVENT_HIDE, function () {
-            console.log("cc.audioEngine.pauseAll");
             cc.audioEngine.pauseAll();
         });
         cc.game.on(cc.game.EVENT_SHOW, function () {
-            console.log("cc.audioEngine.resumeAll");
             cc.audioEngine.resumeAll();
         });
     },
@@ -59,7 +57,6 @@ cc.Class({
 
     playBGM: function playBGM(url) {
         var audioUrl = this.getUrl(url);
-        console.log(audioUrl);
         if (this.bgAudioID >= 0) {
             cc.audioEngine.stop(this.bgAudioID);
         }
