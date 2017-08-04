@@ -77,7 +77,7 @@ public class GameServerConfiguration
 		config.setAuthorizationListener(new AuthorizationListener() {
 			public boolean isAuthorized(HandshakeData data) {
 				String token = data.getSingleUrlParam("token") ; 
-				return !StringUtils.isBlank(token);
+				return !StringUtils.isBlank(token);	//其他安全验证策略，IP，Token，用户名
 			}
 		});
         return server = new SocketIOServer(config);  
