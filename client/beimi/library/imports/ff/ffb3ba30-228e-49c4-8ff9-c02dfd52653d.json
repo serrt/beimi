@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "menu_bottm",
+    "texture": "8b107943-f925-469f-a62d-686c1175d380",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      1227,
+      48
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      1227,
+      48
+    ]
+  }
+}

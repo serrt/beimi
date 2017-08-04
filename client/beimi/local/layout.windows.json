@@ -45,7 +45,7 @@
                     "children": [
                       "scene"
                     ],
-                    "height": 495,
+                    "height": 683,
                     "type": "panel",
                     "width": 969.984375
                   },
@@ -54,12 +54,12 @@
                     "children": [
                       "node-library"
                     ],
-                    "height": 495,
+                    "height": 683,
                     "type": "panel",
                     "width": 291
                   }
                 ],
-                "height": 495,
+                "height": 683,
                 "type": "dock-h",
                 "width": 1263.984375
               },
@@ -69,7 +69,7 @@
                   "console",
                   "timeline"
                 ],
-                "height": 414,
+                "height": 226,
                 "type": "panel",
                 "width": 1263.984375
               }
@@ -98,32 +98,6 @@
         "scene",
         "node-library",
         "timeline"
-      ]
-    },
-    "window-1501854691439": {
-      "main": false,
-      "url": "unpack://static/window.html",
-      "windowType": "float",
-      "x": 751,
-      "y": 281,
-      "width": 418,
-      "height": 447,
-      "layout": {
-        "children": [
-          {
-            "active": 0,
-            "children": [
-              "timeline.bezier"
-            ],
-            "height": 400,
-            "type": "panel",
-            "width": 400
-          }
-        ],
-        "type": "dock-v"
-      },
-      "panels": [
-        "timeline.bezier"
       ]
     }
   },

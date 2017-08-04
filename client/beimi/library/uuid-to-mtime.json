@@ -655,8 +655,8 @@
     "relativePath": "scene\\dating"
   },
   "9ffef9bb-4c0f-40bb-b096-cd5b6c6281d8": {
-    "asset": 1501853453062,
-    "meta": 1501853453104,
+    "asset": 1501856163185,
+    "meta": 1501856163238,
     "relativePath": "scene\\dating\\login.fire"
   },
   "c3362f07-3cd8-4e58-8025-6ae3c744fd20": {
@@ -688,5 +688,50 @@
     "asset": 1501854633795,
     "meta": 1501854633810,
     "relativePath": "resources\\animation\\girl_to_right.anim"
+  },
+  "8b107943-f925-469f-a62d-686c1175d380": {
+    "asset": 1501854975091,
+    "meta": 1501854988776,
+    "relativePath": "images\\menu_bottm.png"
+  },
+  "dbc93d82-0631-4ef3-910a-3cdd666a1bee": {
+    "asset": 1501855116658,
+    "meta": 1501855116668,
+    "relativePath": "images\\menu"
+  },
+  "3b173f9b-2b59-423f-84d8-3dab2a02c44a": {
+    "asset": 1501855144740,
+    "meta": 1501855217053,
+    "relativePath": "images\\menu\\setting.png"
+  },
+  "808274c4-3acf-4bc1-93d7-fe1b9cc6f6ba": {
+    "asset": 1501855144739,
+    "meta": 1501855212981,
+    "relativePath": "images\\menu\\playway.png"
+  },
+  "7798ac9b-1d39-44e2-a19a-578844d1f1bd": {
+    "asset": 1501855144740,
+    "meta": 1501855223766,
+    "relativePath": "images\\menu\\message.png"
+  },
+  "bac701a5-52f7-4130-8dda-fe79416878aa": {
+    "asset": 1501855144741,
+    "meta": 1501855177092,
+    "relativePath": "images\\menu\\feedback.png"
+  },
+  "5bab29da-5833-4b6b-b300-82d89d5d4a53": {
+    "asset": 1501855144741,
+    "meta": 1501855191682,
+    "relativePath": "images\\menu\\record.png"
+  },
+  "d58a722d-fca4-4bb3-ad96-5285b168bea6": {
+    "asset": 1501855144742,
+    "meta": 1501855148843,
+    "relativePath": "images\\menu\\share.png"
+  },
+  "19857ff4-872c-4b2c-a9d1-41255113f2ae": {
+    "asset": 1501855769460,
+    "meta": 1501855773754,
+    "relativePath": "images\\menu\\shop.png"
   }
 }
