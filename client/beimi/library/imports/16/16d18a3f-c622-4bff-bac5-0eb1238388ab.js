@@ -22,22 +22,41 @@ cc.Class({
 
     onLoad: function onLoad() {
         var self = this;
-        this._dialog = cc.find("Canvas/dialog");
-        this._button = cc.find("Canvas/button");
-        this._button.active = false;
-        this._girl = cc.find("Canvas/splash/background/girl");
-        this._animCtrl = this._girl.getComponent(cc.Animation);
     },
     onClick: function onClick() {
-        this._dialog.active = false;
-        this._button.active = true;
+        var root = cc.find("Canvas");
+        if (cc.tools.dialogNodePool.size() > 0) {
+            cc.tools.dialog = cc.tools.dialogNodePool.get();
+
+            if (cc.tools.dialog !== null) {
+                cc.tools.dialog.parent = root;
+                cc.tools.dialog.position = cc.p(0, 0);
+
+                cc.tools.dialog.on(cc.Node.EventType.TOUCH_START, function (e) {
+                    e.stopPropagation();
+                });
+            }
+        }
+        this._girl = cc.find("Canvas/splash/background/girl");
+        this._animCtrl = this._girl.getComponent(cc.Animation);
         this._animCtrl.play("girl_to_left");
     },
-    onShowClick: function onShowClick() {
-        this._button.active = false;
-        this._dialog.active = true;
-        var anim = this.getComponent(cc.Animation);
+    onCloseClick: function onCloseClick() {
+        if (cc.tools.dialog) {
+            /**
+             *  对象池返回， 释放资源 ，  同时 解除 事件绑定
+             * 
+             */
+            cc.tools.dialog.off(cc.Node.EventType.TOUCH_START, function (e) {
+                e.stopPropagation();
+            });
+            cc.tools.dialogNodePool.put(cc.tools.dialog);
+            cc.tools.dialog = null;
+        }
+        this._girl = cc.find("Canvas/splash/background/girl");
+        this._animCtrl = this._girl.getComponent(cc.Animation);
         this._animCtrl.play("girl_to_right");
+        //this._animCtrl.play("girl_to_right");
     }
 
     // called every frame, uncomment this function to activate update callback
