@@ -1,8 +1,18 @@
 package com.beimi.util;
 
+import io.netty.handler.codec.http.HttpHeaders;
+
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.security.NoSuchAlgorithmException;
@@ -15,10 +25,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.coobird.thumbnailator.Thumbnails;
+
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.ConversionException;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.Converter;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.jsoup.Jsoup;
@@ -32,10 +51,21 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchCrudReposi
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.beimi.core.BMDataContext;
+import com.beimi.util.cache.CacheHelper;
 import com.beimi.util.event.UserDataEvent;
 import com.beimi.util.event.UserEvent;
+import com.beimi.web.model.AttachmentFile;
+import com.beimi.web.model.Secret;
+import com.beimi.web.model.SystemConfig;
+import com.beimi.web.model.Template;
+import com.beimi.web.model.User;
+import com.beimi.web.service.repository.jpa.AttachmentRepository;
+import com.beimi.web.service.repository.jpa.SecretRepository;
+import com.beimi.web.service.repository.jpa.SystemConfigRepository;
+import com.beimi.web.service.repository.jpa.TemplateRepository;
 import com.lmax.disruptor.dsl.Disruptor;
 
 
@@ -164,7 +194,16 @@ public class UKTools {
 		}
 		return strb.toString() ;
 	}
-	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void published(UserEvent event , ElasticsearchCrudRepository esRes , JpaRepository dbRes){
+		Disruptor<UserDataEvent> disruptor = (Disruptor<UserDataEvent>) BMDataContext.getContext().getBean("disruptor") ;
+		long seq = disruptor.getRingBuffer().next();
+		UserDataEvent userDataEvent = disruptor.getRingBuffer().get(seq) ;
+		userDataEvent.setEvent(event);
+		userDataEvent.setDbRes(dbRes);
+		userDataEvent.setEsRes(esRes);
+		disruptor.getRingBuffer().publish(seq);
+	}
 	/**
 	 * 
 	 * @param request
@@ -273,6 +312,95 @@ public class UKTools {
         response.setHeader("Last-Modified",String.valueOf(new Date()));
 	}
 	
+	public static BrowserClient parseClient(HttpServletRequest request){
+		BrowserClient client = new BrowserClient() ;
+		String  browserDetails  =   request.getHeader("User-Agent");
+	    String  userAgent       =   browserDetails;
+	    String  user   =   userAgent.toLowerCase();
+		String os = "";
+        String browser = "" , version = "";
+        
+
+        //=================OS=======================
+         if (userAgent.toLowerCase().indexOf("windows") >= 0 )
+         {
+             os = "windows";
+         } else if(userAgent.toLowerCase().indexOf("mac") >= 0)
+         {
+             os = "mac";
+         } else if(userAgent.toLowerCase().indexOf("x11") >= 0)
+         {
+             os = "unix";
+         } else if(userAgent.toLowerCase().indexOf("android") >= 0)
+         {
+             os = "android";
+         } else if(userAgent.toLowerCase().indexOf("iphone") >= 0)
+         {
+             os = "iphone";
+         }else{
+             os = "UnKnown";
+         }
+         //===============Browser===========================
+        if (user.contains("msie") || user.indexOf("rv:11") > -1)
+        {
+        	if(user.indexOf("rv:11") >= 0){
+        		browser = "IE11" ;
+        	}else{
+	            String substring=userAgent.substring(userAgent.indexOf("MSIE")).split(";")[0];
+	            browser=substring.split(" ")[0].replace("MSIE", "IE")+substring.split(" ")[1];
+        	}
+        }else if (user.contains("trident"))
+        {
+            browser= "IE 11" ;
+        }else if (user.contains("edge"))
+        {
+            browser= "Edge" ;
+        }  else if (user.contains("safari") && user.contains("version"))
+        {
+            browser = (userAgent.substring(userAgent.indexOf("Safari")).split(" ")[0]).split("/")[0];
+            version = (userAgent.substring(userAgent.indexOf("Version")).split(" ")[0]).split("/")[1] ;
+        } else if ( user.contains("opr") || user.contains("opera"))
+        {
+            if(user.contains("opera"))
+                browser=(userAgent.substring(userAgent.indexOf("Opera")).split(" ")[0]).split("/")[0]+"-"+(userAgent.substring(userAgent.indexOf("Version")).split(" ")[0]).split("/")[1];
+            else if(user.contains("opr"))
+                browser=((userAgent.substring(userAgent.indexOf("OPR")).split(" ")[0]).replace("/", "-")).replace("OPR", "Opera");
+        } else if (user.contains("chrome"))
+        {
+            browser = "Chrome";
+        } else if ((user.indexOf("mozilla/7.0") > -1) || (user.indexOf("netscape6") != -1)  || (user.indexOf("mozilla/4.7") != -1) || (user.indexOf("mozilla/4.78") != -1) || (user.indexOf("mozilla/4.08") != -1) || (user.indexOf("mozilla/3") != -1) )
+        {
+            //browser=(userAgent.substring(userAgent.indexOf("MSIE")).split(" ")[0]).replace("/", "-");
+            browser = "Netscape-?";
+
+        }else if ((user.indexOf("mozilla") > -1))
+        {
+            //browser=(userAgent.substring(userAgent.indexOf("MSIE")).split(" ")[0]).replace("/", "-");
+        	if(browserDetails.indexOf(" ") > 0){
+        		browser = browserDetails.substring(0 , browserDetails.indexOf(" "));
+        	}else{
+        		browser = "Mozilla" ;
+        	}
+
+        } else if (user.contains("firefox"))
+        {
+            browser=(userAgent.substring(userAgent.indexOf("Firefox")).split(" ")[0]).replace("/", "-");
+        } else if(user.contains("rv"))
+        {
+            browser="ie";
+        } else
+        {
+            browser = "UnKnown";
+        }
+        client.setUseragent(browserDetails);
+        client.setOs(os);
+        client.setBrowser(browser);
+        client.setVersion(version);
+        
+        return client ;
+	}
+	
+	
 	public static Map<String, Object> transBean2Map(Object obj) {  
 		  
         if(obj == null){  
@@ -307,6 +435,61 @@ public class UKTools {
         return map;  
   
     }
+	
+	public static void populate(Object bean , Map<Object , Object> properties) throws IllegalAccessException, InvocationTargetException{
+		ConvertUtils.register(new Converter()    
+		{    
+			@SuppressWarnings("rawtypes")    
+			@Override    
+			public Object convert(Class arg0, Object arg1)    
+			{    
+				if(arg1 == null)    
+				{    
+					return null;    
+				}    
+				if(!(arg1 instanceof String)){    
+					throw new ConversionException("只支持字符串转换 !");    
+				}    
+				String str = (String)arg1;    
+				if(str.trim().equals(""))    
+				{    
+					return null;    
+				}    
+
+				SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");    
+
+				try{    
+					return sd.parse(str);    
+				} catch(Exception e)    
+				{    
+					throw new RuntimeException(e);    
+				}    
+
+			}    
+
+		}, java.util.Date.class);  
+		if (properties == null || bean == null) {    
+			return;    
+		}    
+		try {    
+			BeanUtilsBean.getInstance().populate(bean, properties);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}    
+	}
+	
+	public static byte[] toBytes(Object object) throws Exception {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		ObjectOutputStream objectOutput = new ObjectOutputStream(out);
+		objectOutput.writeObject(object);
+		return out.toByteArray();
+	}
+
+	public static Object toObject(byte[] data) throws Exception {
+		ByteArrayInputStream input = new ByteArrayInputStream(data);
+		ObjectInputStream objectInput = new ObjectInputStream(input);
+		return objectInput.readObject();
+	}
 	
 	/**
      * 
@@ -408,14 +591,140 @@ public class UKTools {
     	return workintTime ;
     }
     
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public static void published(UserEvent event , ElasticsearchCrudRepository esRes , JpaRepository dbRes){
-		Disruptor<UserDataEvent> disruptor = (Disruptor<UserDataEvent>) BMDataContext.getContext().getBean("disruptor") ;
-		long seq = disruptor.getRingBuffer().next();
-		UserDataEvent userDataEvent = disruptor.getRingBuffer().get(seq) ;
-		userDataEvent.setEvent(event);
-		userDataEvent.setDbRes(dbRes);
-		userDataEvent.setEsRes(esRes);
-		disruptor.getRingBuffer().publish(seq);
+    public static File processImage(File destFile,File imageFile) throws FileNotFoundException, IOException{
+		if(imageFile != null && imageFile.exists()){
+			Thumbnails.of(imageFile).width(460).keepAspectRatio(true).toFile(destFile);
+		}
+		return destFile ;
+    }
+
+	public static String processEmoti(String message) {
+		Pattern pattern = Pattern.compile("\\[([\\d]*?)\\]");
+	    Matcher matcher = pattern.matcher(message);
+	    StringBuffer strb = new StringBuffer();
+	    while(matcher.find()) {
+	        matcher.appendReplacement(strb,"<img src='/im/js/kindeditor/plugins/emoticons/images/"+matcher.group(1)+".png'>");
+	    }
+	    if(strb.length() == 0){
+	    	strb.append(message) ;
+	    }
+	    return strb.toString() ;
 	}
+	
+	public static String getIpAddr(HttpServletRequest request) {  
+	    String ip = request.getHeader("x-forwarded-for");  
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+	        ip = request.getHeader("Proxy-Client-IP");  
+	    }  
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+	        ip = request.getHeader("WL-Proxy-Client-IP");  
+	    }  
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+	        ip = request.getRemoteAddr();  
+	    }  
+	    return ip;  
+	}
+	
+	public static String getIpAddr(HttpHeaders headers , String remoteAddr) {  
+	    String ip = headers.get("x-forwarded-for");  
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+	        ip = headers.get("Proxy-Client-IP");  
+	    }  
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+	        ip = headers.get("WL-Proxy-Client-IP");  
+	    }  
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+	        ip = remoteAddr;  
+	    }  
+	    return ip;  
+	}
+	
+	public static boolean secConfirm(SecretRepository secRes , String orgi , String confirm){
+		/**
+    	 * 先调用 IMServer 
+    	 */
+    	boolean execute = false ;
+    	List<Secret> secretConfig = secRes.findByOrgi(orgi) ;
+    	if(!StringUtils.isBlank(confirm)){
+        	if(secretConfig!=null && secretConfig.size() > 0){
+        		Secret secret = secretConfig.get( 0) ;
+        		if(UKTools.md5(confirm).equals(secret.getPassword())){
+        			execute = true ;
+        		}
+        	}
+    	}else if(secretConfig.size() == 0){
+    		execute = true ;
+    	}
+    	return execute ;
+	}
+	
+	public static void  processAttachmentFile(MultipartFile[] files, AttachmentRepository attachementRes , String path,User user , String orgi, HttpServletRequest request  , String dataid , String modelid) throws IOException{
+    	if(files!=null && files.length > 0){
+    		//保存附件
+    		for(MultipartFile file : files){
+    			if(file.getSize() > 0){			//文件尺寸 限制 ？在 启动 配置中 设置 的最大值，其他地方不做限制
+    				String fileid = UKTools.md5(file.getBytes()) ;	//使用 文件的 MD5作为 ID，避免重复上传大文件
+    				if(!StringUtils.isBlank(fileid)){
+		    			AttachmentFile attachmentFile = new AttachmentFile() ;
+		    			attachmentFile.setCreater(user.getId());
+		    			attachmentFile.setOrgi(orgi);
+		    			attachmentFile.setOrgan(user.getOrgan());
+		    			attachmentFile.setDataid(dataid);
+		    			attachmentFile.setModelid(modelid);
+		    			attachmentFile.setFilelength((int) file.getSize());
+		    			if(file.getContentType()!=null && file.getContentType().length() > 255){
+		    				attachmentFile.setFiletype(file.getContentType().substring(0 , 255));
+		    			}else{
+		    				attachmentFile.setFiletype(file.getContentType());
+		    			}
+		    			if(file.getOriginalFilename()!=null && file.getOriginalFilename().length() > 255){
+		    				attachmentFile.setTitle(file.getOriginalFilename().substring(0 , 255));
+		    			}else{
+		    				attachmentFile.setTitle(file.getOriginalFilename());
+		    			}
+		    			if(!StringUtils.isBlank(attachmentFile.getFiletype()) && attachmentFile.getFiletype().indexOf("image") >= 0){
+		    				attachmentFile.setImage(true);
+		    			}
+		    			attachmentFile.setFileid(fileid);
+		    			attachementRes.save(attachmentFile) ;
+		    			FileUtils.writeByteArrayToFile(new File(path , "app/workorders/"+fileid), file.getBytes());
+    				}
+    			}
+    		}
+    		
+    	}
+    }
+	/**
+	 * 获取系统配置
+	 * @return
+	 */
+	public static SystemConfig getSystemConfig(){
+		SystemConfig systemConfig = (SystemConfig) CacheHelper.getSystemCacheBean().getCacheObject("systemConfig", BMDataContext.SYSTEM_ORGI) ;
+		if(systemConfig == null){
+			SystemConfigRepository systemConfigRes = BMDataContext.getContext().getBean(SystemConfigRepository.class) ;
+			systemConfig = systemConfigRes.findByOrgi(BMDataContext.SYSTEM_ORGI) ;
+		}
+		return systemConfig;
+	}
+	
+	public static Template getTemplate(String id){
+		TemplateRepository templateRes = BMDataContext.getContext().getBean(TemplateRepository.class) ;
+		return templateRes.findByIdAndOrgi(id, BMDataContext.SYSTEM_ORGI);
+	}
+	
+	/** 
+     * 16进制字符串转换为字符串 
+     *  
+     * @param s 
+     * @return 
+     */  
+	public static String string2HexString(String strPart) {  
+        StringBuffer hexString = new StringBuffer();  
+        for (int i = 0; i < strPart.length(); i++) {  
+            int ch = (int) strPart.charAt(i);  
+            String strHex = Integer.toHexString(ch);  
+            hexString.append(strHex);  
+        }  
+        return hexString.toString();  
+    }  
 }

@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "uk_sysdic")
+@Table(name = "bm_sysdic")
 @org.hibernate.annotations.Proxy(lazy = false)
 public class SysDic  implements java.io.Serializable {
 	/**
@@ -21,7 +21,7 @@ public class SysDic  implements java.io.Serializable {
 	private static final long serialVersionUID = 8699781935163431952L;
 	private String id ;
 	private String name ;
-	private String title = "pub";			//改变用处， 变更为 CubeDic 的 目录类型， 个人文件夹  / 公共文件夹
+	private String title = "pub";			
 	private String code ;
 	private String orgi ;
 	private String ctype ;
@@ -41,7 +41,7 @@ public class SysDic  implements java.io.Serializable {
 	
 	private String menutype ;				//菜单类型，顶部导航菜单， 左侧菜单
 	
-	private String rules ;					//角色要求 ， 管理员 / 普通用户 / 多媒体坐席  / 呼叫中心坐席
+	private String rules ;					//角色要求 
 	
 	private String module ;
 	private String url ;

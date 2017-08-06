@@ -9,9 +9,12 @@ public class BMDataContext {
 	public static final String GUEST_USER_ID_CODE = "BEIMIGUESTUSEKEY" ;
 	public static final String SERVICE_QUENE_NULL_STR = "service_quene_null" ;
 	public static final String DEFAULT_TYPE = "default"	;		//默认分类代码
+	public static final String BEIMI_SYSTEM_DIC = "com.dic.system.template";
+	public static final String BEIMI_SYSTEM_AUTH_DIC = "com.dic.auth.resource";
+	
 	public static String SYSTEM_ORGI = "beimi" ;
 	
-	private static int WebIMPort = 8081 ;
+	private static int WebIMPort = 9081 ;
 	
 	private static boolean imServerRunning = false ;			//IM服务状态
 	

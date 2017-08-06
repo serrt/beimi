@@ -1,0 +1,17 @@
+//created on: 28.05.2015
+package beimi.user
+
+//list any import classes here.
+import com.beimi.web.model.User
+
+//declare any global variables here
+
+
+rule "test"
+	salience 100 
+	lock-on-active true
+    when
+        $user:User(usertype != null)
+    then
+		System.out.println("Rule applied, men!");
+end

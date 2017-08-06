@@ -80,6 +80,14 @@ public class GameServerConfiguration
 				return !StringUtils.isBlank(token);	//其他安全验证策略，IP，Token，用户名
 			}
 		});
+		/**
+		 * 性能优化
+		 */
+		config.getSocketConfig().setReuseAddress(true);
+		config.getSocketConfig().setSoLinger(0);
+		config.getSocketConfig().setTcpNoDelay(true);
+		config.getSocketConfig().setTcpKeepAlive(true);
+		
         return server = new SocketIOServer(config);  
     }
     

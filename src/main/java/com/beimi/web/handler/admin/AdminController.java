@@ -22,6 +22,8 @@ public class AdminController extends Handler{
 	@Autowired
 	private UserRepository userRes;
 	
+//	@Autowired
+//	private KieContainer kieContainer;
 	
 	@Autowired
 	private SysDicRepository sysDicRes ;
@@ -29,6 +31,14 @@ public class AdminController extends Handler{
     @RequestMapping("/admin/content")
     @Menu(type = "admin" , subtype = "content")
     public ModelAndView content(ModelMap map , HttpServletRequest request) {
+    	
+//    	KieSession kieSession = kieContainer.newKieSession() ;
+//    	long start = System.currentTimeMillis() ;
+//    	kieSession.insert(super.getUser(request));
+//		int ruleFiredCount = kieSession.fireAllRules();
+//		System.out.println(ruleFiredCount);
+//		kieSession.dispose();
+//		System.out.println(System.currentTimeMillis() - start);
     	return request(super.createAdminTempletResponse("/admin/desktop/index"));
     }
 }
