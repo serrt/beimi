@@ -31,9 +31,6 @@ cc.Class({
                 });
             }
         }
-        this._girl = cc.find("Canvas/splash/background/girl");
-        this._animCtrl = this._girl.getComponent(cc.Animation);
-        this._animCtrl.play("girl_to_left");
     },
     onCloseClick:function(){
         if(cc.tools.dialog){
@@ -47,10 +44,6 @@ cc.Class({
             cc.tools.dialogNodePool.put(cc.tools.dialog);
             cc.tools.dialog = null ;
         }
-        this._girl = cc.find("Canvas/splash/background/girl");
-        this._animCtrl = this._girl.getComponent(cc.Animation);
-        this._animCtrl.play("girl_to_right");
-        //this._animCtrl.play("girl_to_right");
     }
 
     // called every frame, uncomment this function to activate update callback
